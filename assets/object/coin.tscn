@@ -1,0 +1,96 @@
+[gd_scene load_steps=12 format=3 uid="uid://cue63mvvmv6mq"]
+
+[ext_resource type="Texture2D" uid="uid://cl4eou73fdo0k" path="res://assets/sprites/coin.png" id="1_puvn3"]
+[ext_resource type="Script" uid="uid://dgd3xuegtn3j2" path="res://assets/object/coin.gd" id="1_xjaig"]
+
+[sub_resource type="Shader" id="Shader_xjaig"]
+code = "shader_type canvas_item;
+uniform vec4 Colors[4]: source_color;
+uniform float brightness = 3;
+uniform bool active;
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	if (active) {
+		int index = int(mix(0,4,sin(TIME * 25.0)));
+		index = clamp(index, 0, 4);
+		COLOR = texture(TEXTURE, UV);
+		float sat = (COLOR.r + COLOR.b + COLOR.g) / 3.0;
+		COLOR.rgb = vec3(sat) * vec3(brightness) * Colors[index].rgb;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0lae6"]
+resource_local_to_scene = true
+shader = SubResource("Shader_xjaig")
+shader_parameter/Colors = PackedColorArray(1, 1, 0, 1, 0.8901961, 0.34901962, 0, 1, 0, 0, 1, 1, 0.49019608, 0.5411765, 1, 1)
+shader_parameter/brightness = 4.5
+shader_parameter/active = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjaig"]
+atlas = ExtResource("1_puvn3")
+region = Rect2(0, 0, 24, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lae6"]
+atlas = ExtResource("1_puvn3")
+region = Rect2(24, 0, 24, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_npwyi"]
+atlas = ExtResource("1_puvn3")
+region = Rect2(48, 0, 24, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv2ds"]
+atlas = ExtResource("1_puvn3")
+region = Rect2(72, 0, 24, 19)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pwf1r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjaig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lae6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_npwyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hv2ds")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_puvn3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_puvn3"]
+radius = 10.049875
+
+[node name="coin" type="CharacterBody2D"]
+z_index = 1
+script = ExtResource("1_xjaig")
+metadata/EntityType = "Coin"
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_0lae6")
+sprite_frames = SubResource("SpriteFrames_pwf1r")
+autoplay = "default"
+frame = 1
+frame_progress = 0.14021285
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_puvn3")
+disabled = true
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_puvn3")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_collision"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_onscreen"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_offscreen"]
