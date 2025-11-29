@@ -1,0 +1,25 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://cqkg7xbpaxijl"
+path="res://.godot/imported/number.png-9a71c4d605c1183be266e0ef47c7995e.fontdata"
+
+[deps]
+
+source_file="res://assets/sprites/number.png"
+dest_files=["res://.godot/imported/number.png-9a71c4d605c1183be266e0ef47c7995e.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("\'0\'", "\'1\'-\'9\'", "\'!\'", "\'?\'", "\'.\'", "\':\'", "\'(\'-\')\'", "\'+\'", "\'-\'", "\'*\'", "\'/\'")
+kerning_pairs=PackedStringArray()
+columns=10
+rows=2
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+ascent=0
+descent=0
+fallbacks=[]
+compress=true
+scaling_mode=2
