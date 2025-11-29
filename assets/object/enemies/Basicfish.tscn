@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://38q4dqlwuh2c"]
+
+[ext_resource type="Script" uid="uid://b1xjq6jsjttg7" path="res://assets/object/fish.gd" id="1_4a4hg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4a4hg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lc2cb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lc2cb"]
+
+[node name="Fish" type="CharacterBody2D"]
+script = ExtResource("1_4a4hg")
+metadata/_custom_type_script = "uid://b1xjq6jsjttg7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4a4hg")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_lc2cb")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_lc2cb")
+debug_color = Color(0.972549, 0, 0, 0.41960785)

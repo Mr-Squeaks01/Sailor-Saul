@@ -1,0 +1,100 @@
+[gd_scene load_steps=12 format=3 uid="uid://bwum8ggawyasd"]
+
+[ext_resource type="Script" uid="uid://bkq2i8r3i062t" path="res://assets/object/enemies/dustin.gd" id="1_yjfkx"]
+[ext_resource type="Texture2D" uid="uid://b8hkidnjwf1jj" path="res://assets/sprites/enemies/new_dustin.png" id="2_yjfkx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6uls"]
+atlas = ExtResource("2_yjfkx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfy56"]
+atlas = ExtResource("2_yjfkx")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ucbgi"]
+atlas = ExtResource("2_yjfkx")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pw8u"]
+atlas = ExtResource("2_yjfkx")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrjhm"]
+atlas = ExtResource("2_yjfkx")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78nar"]
+atlas = ExtResource("2_yjfkx")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mfy56"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6uls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfy56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ucbgi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4pw8u")
+}],
+"loop": false,
+"name": &"bye",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrjhm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrjhm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78nar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrjhm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6uls"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yjfkx"]
+radius = 12.0415945
+
+[node name="dustin" type="CharacterBody2D"]
+script = ExtResource("1_yjfkx")
+metadata/EntityType = ""
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mfy56")
+animation = &"bye"
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k6uls")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_yjfkx")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, 6)
+rect = Rect2(-10, -1, 20, 11)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_collision"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_onscreen"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="offscreen"]

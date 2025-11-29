@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://dktpw71lc2fa7"]
+
+[ext_resource type="PackedScene" uid="uid://38q4dqlwuh2c" path="res://assets/object/enemies/Basicfish.tscn" id="1_yevmr"]
+[ext_resource type="Texture2D" uid="uid://deelnu4sn8lui" path="res://assets/sprites/enemies/normal_fish.png" id="2_mvw81"]
+[ext_resource type="Script" uid="uid://d2vqska4h0fqj" path="res://assets/object/behaviors/waveBehavior.gd" id="3_mvw81"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8gn5"]
+atlas = ExtResource("2_mvw81")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8pxr"]
+atlas = ExtResource("2_mvw81")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_up8ui"]
+atlas = ExtResource("2_mvw81")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64sm3"]
+atlas = ExtResource("2_mvw81")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5tjt"]
+atlas = ExtResource("2_mvw81")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l7ho1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8gn5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8pxr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_up8ui")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64sm3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5tjt")
+}],
+"loop": true,
+"name": &"peak",
+"speed": 5.0
+}]
+
+[node name="Fish" instance=ExtResource("1_yevmr")]
+motion_mode = 1
+SPEED = 100.0
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_l7ho1")
+frame_progress = 0.29815024
+
+[node name="WaveBehavior" type="Node" parent="." index="3"]
+script = ExtResource("3_mvw81")
+amp = 10.0
+speed = 1.0
+enabled = true
+metadata/_custom_type_script = "uid://d2vqska4h0fqj"
