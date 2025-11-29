@@ -1,0 +1,248 @@
+[gd_scene load_steps=15 format=3 uid="uid://baj2e7sqclqx1"]
+
+[ext_resource type="Texture2D" uid="uid://cipijica1tgps" path="res://assets/sprites/cloud.png" id="1_4k7ef"]
+[ext_resource type="Texture2D" uid="uid://5b4ikyuufg5d" path="res://assets/sprites/title.png" id="1_faptf"]
+[ext_resource type="Script" uid="uid://crfabv81dqord" path="res://scenes/title_scene.gd" id="1_l8sac"]
+[ext_resource type="Texture2D" uid="uid://bvhsfqr2ks3nw" path="res://assets/sprites/start.png" id="2_4k7ef"]
+[ext_resource type="Script" uid="uid://d2vqska4h0fqj" path="res://assets/object/behaviors/waveBehavior.gd" id="4_bq8jb"]
+[ext_resource type="AudioStream" uid="uid://c2fc80ruvhfsr" path="res://assets/SFX/jump.wav" id="6_l5n7b"]
+[ext_resource type="AudioStream" uid="uid://b16qdyownrt35" path="res://assets/music/title.mp3" id="7_s8xmt"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_l5n7b"]
+
+[sub_resource type="Animation" id="Animation_7rdyk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_s8xmt"]
+resource_name = "blink"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.52),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ofksa"]
+_data = {
+&"RESET": SubResource("Animation_7rdyk"),
+&"blink": SubResource("Animation_s8xmt")
+}
+
+[sub_resource type="Animation" id="Animation_4k7ef"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("title:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(563, 330)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("start_game:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(522, 424)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("start_game:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_faptf"]
+resource_name = "intro"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Color(0.1950359, 0.19503593, 0.19503587, 1), Color(0.49563175, 0.49563175, 0.49563175, 1), Color(0.74623615, 0.7462362, 0.74623615, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("title:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.6333333, 1.9),
+"transitions": PackedFloat32Array(0.20967337, 0.97290874, 1),
+"update": 0,
+"values": [Vector2(563, 506), Vector2(563, 311), Vector2(563, 319)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("start_game:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(522, 600), Vector2(522, 405)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("start_game:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4k7ef"]
+_data = {
+&"RESET": SubResource("Animation_4k7ef"),
+&"intro": SubResource("Animation_faptf")
+}
+
+[node name="TitleScene" type="Node2D"]
+script = ExtResource("1_l8sac")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(570, 346)
+zoom = Vector2(3, 3)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 375.0
+offset_top = 233.0
+offset_right = 767.0
+offset_bottom = 459.0
+color = Color(0, 0, 0, 1)
+
+[node name="Parallax2D2" type="Parallax2D" parent="."]
+repeat_size = Vector2(383.925, 0)
+autoscroll = Vector2(-7.558, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(674.12, 244.55984)
+scale = Vector2(0.785, 0.785)
+texture = ExtResource("1_4k7ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(531.12, 201.56)
+scale = Vector2(0.785, 0.785)
+texture = ExtResource("1_4k7ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(752, 293.99982)
+scale = Vector2(0.785, 0.785)
+texture = ExtResource("1_4k7ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(554.12, 273.5598)
+scale = Vector2(0.785, 0.785)
+texture = ExtResource("1_4k7ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(400.12, 230.55981)
+scale = Vector2(0.785, 0.785)
+texture = ExtResource("1_4k7ef")
+
+[node name="title" type="Sprite2D" parent="."]
+position = Vector2(563, 330)
+texture = ExtResource("1_faptf")
+
+[node name="WaveBehavior" type="Node" parent="title"]
+script = ExtResource("4_bq8jb")
+amp = 200.0
+speed = 0.5
+enabled = true
+metadata/_custom_type_script = "uid://d2vqska4h0fqj"
+
+[node name="start_game" type="TextureButton" parent="."]
+offset_left = 522.0
+offset_top = 424.0
+offset_right = 611.0
+offset_bottom = 440.0005
+texture_normal = ExtResource("2_4k7ef")
+texture_pressed = SubResource("CanvasTexture_l5n7b")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="start_game"]
+libraries = {
+&"": SubResource("AnimationLibrary_ofksa")
+}
+autoplay = "blink"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4k7ef")
+}
+autoplay = "intro"
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+
+[node name="tick" type="Timer" parent="."]
+
+[node name="select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_l5n7b")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_s8xmt")
+autoplay = true
+bus = &"SFX"
+parameters/looping = true
+
+[connection signal="pressed" from="start_game" to="." method="_on_start_game_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="tick" to="." method="_on_tick_timeout"]

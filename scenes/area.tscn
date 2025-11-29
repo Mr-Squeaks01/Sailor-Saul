@@ -1,0 +1,349 @@
+[gd_scene load_steps=29 format=3 uid="uid://frjrycci4cyr"]
+
+[ext_resource type="Script" uid="uid://dh4r4lg27gq7w" path="res://scenes/area.gd" id="1_5jt5u"]
+[ext_resource type="Texture2D" uid="uid://bq6jwxy14nd27" path="res://assets/sprites/water.png" id="1_u55m2"]
+[ext_resource type="PackedScene" uid="uid://qxsgfgord4kr" path="res://assets/object/ship.tscn" id="2_8qhwf"]
+[ext_resource type="PackedScene" uid="uid://dp30il7b1w7q4" path="res://assets/object/player.tscn" id="3_2hywi"]
+[ext_resource type="Script" uid="uid://d2vqska4h0fqj" path="res://assets/object/behaviors/waveBehavior.gd" id="3_t8tu6"]
+[ext_resource type="Texture2D" uid="uid://dm0y45tjtqdd8" path="res://assets/sprites/label.png" id="7_abe4w"]
+[ext_resource type="Texture2D" uid="uid://cipijica1tgps" path="res://assets/sprites/cloud.png" id="7_j4i6t"]
+[ext_resource type="Script" uid="uid://81biure7hkm" path="res://scenes/camera_2d.gd" id="8_8pxb4"]
+[ext_resource type="FontFile" uid="uid://cqkg7xbpaxijl" path="res://assets/sprites/number.png" id="8_wx6cp"]
+[ext_resource type="Texture2D" uid="uid://tjxxewh6l5do" path="res://assets/sprites/heart.png" id="9_luect"]
+[ext_resource type="Texture2D" uid="uid://dyyajjk8cquvo" path="res://assets/sprites/infoB0x.png" id="10_ueojj"]
+[ext_resource type="PackedScene" uid="uid://dktpw71lc2fa7" path="res://assets/object/enemies/blue_fish.tscn" id="11_j4i6t"]
+[ext_resource type="Texture2D" uid="uid://m52u4yraubu0" path="res://assets/sprites/progress/bg_1.png" id="12_5ii6m"]
+[ext_resource type="Texture2D" uid="uid://bjsl5t831hv6" path="res://assets/sprites/progress/front_1.png" id="13_s7pni"]
+[ext_resource type="Texture2D" uid="uid://cjjsdvm53x3pj" path="res://assets/sprites/progress/progress_1.png" id="14_3vqv2"]
+[ext_resource type="AudioStream" uid="uid://cmkvhyu2nvxwh" path="res://assets/music/sail.mp3" id="16_s7pni"]
+[ext_resource type="PackedScene" uid="uid://bwum8ggawyasd" path="res://assets/object/enemies/dustin.tscn" id="17_3vqv2"]
+[ext_resource type="PackedScene" uid="uid://5j5a4bj2ng5p" path="res://assets/object/enemies/crow.tscn" id="18_vsljy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wx6cp"]
+atlas = ExtResource("7_abe4w")
+region = Rect2(0, 0, 38.669785, 7.9444427)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wx6cp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luect"]
+atlas = ExtResource("7_abe4w")
+region = Rect2(39.681, 0, 38.67, 7.944)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wx6cp"]
+bg_color = Color(0, 0.02745098, 1, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_luect"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ueojj"]
+
+[sub_resource type="GDScript" id="GDScript_ueojj"]
+resource_name = "border"
+script/source = "extends Area2D
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is Player:
+		body.hit(-1000)
+"
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ueojj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7pni"]
+atlas = ExtResource("7_abe4w")
+region = Rect2(80, 0, 40, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3vqv2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7pni")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="area" type="Node2D"]
+script = ExtResource("1_5jt5u")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 1160.0
+offset_bottom = 653.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ship" parent="." node_paths=PackedStringArray("TARGET") instance=ExtResource("2_8qhwf")]
+position = Vector2(539, 597)
+TARGET = NodePath("../player")
+
+[node name="player" parent="." instance=ExtResource("3_2hywi")]
+position = Vector2(540, 593)
+SPEED = 80.0
+JUMP_VELOCITY = -300.0
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+z_index = 1
+repeat_size = Vector2(383.925, 0)
+autoscroll = Vector2(7.558, 0)
+
+[node name="water" type="NinePatchRect" parent="Parallax2D"]
+offset_left = 341.0
+offset_top = 600.0
+offset_right = 725.0
+offset_bottom = 760.0
+texture = ExtResource("1_u55m2")
+region_rect = Rect2(0, 0, 32, 26.68724)
+patch_margin_top = 28
+axis_stretch_horizontal = 2
+
+[node name="WaveBehavior" type="Node" parent="Parallax2D/water"]
+script = ExtResource("3_t8tu6")
+amp = 2.0
+speed = 0.98
+enabled = true
+metadata/_custom_type_script = "uid://d2vqska4h0fqj"
+
+[node name="Parallax2D2" type="Parallax2D" parent="."]
+z_index = 1
+scroll_offset = Vector2(-51, 4)
+repeat_size = Vector2(383.925, 0)
+autoscroll = Vector2(-7.558, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(663.11993, 484.56003)
+scale = Vector2(0.785, 0.785)
+texture = ExtResource("7_j4i6t")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(520.12, 441.56018)
+scale = Vector2(0.785, 0.785)
+texture = ExtResource("7_j4i6t")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(741, 534)
+scale = Vector2(0.785, 0.785)
+texture = ExtResource("7_j4i6t")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(543.11993, 513.56)
+scale = Vector2(0.785, 0.785)
+texture = ExtResource("7_j4i6t")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(389.11993, 470.56)
+scale = Vector2(0.785, 0.785)
+texture = ExtResource("7_j4i6t")
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(534, 524)
+zoom = Vector2(3, 3)
+script = ExtResource("8_8pxb4")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1153.0
+offset_bottom = 650.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 93.0
+offset_top = 26.0
+offset_right = 1066.0
+offset_bottom = 54.0
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_wx6cp")
+
+[node name="scoreLabel" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("8_wx6cp")
+text = "000000000"
+scroll_active = false
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 315
+theme_override_styles/separator = SubResource("StyleBoxEmpty_wx6cp")
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_luect")
+
+[node name="healthBar" type="ProgressBar" parent="CanvasLayer/Control/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_wx6cp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_luect")
+show_percentage = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.0015384615
+anchor_right = 0.01908066
+anchor_bottom = 0.027692307
+offset_left = 83.0
+offset_top = 80.0
+offset_right = 1250.0
+offset_bottom = 120.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/HBoxContainer2"]
+custom_minimum_size = Vector2(49.358, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("9_luect")
+
+[node name="lifeLabel" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("8_wx6cp")
+text = "*00"
+scroll_active = false
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="CanvasLayer/Control/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 512
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ueojj")
+
+[node name="timeLabel" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("8_wx6cp")
+text = "00.00.00"
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control"]
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/Control"]
+visible = false
+position = Vector2(504.49997, 63)
+scale = Vector2(2.968752, 2.875)
+texture = ExtResource("10_ueojj")
+hframes = 2
+vframes = 3
+
+[node name="circle" type="TextureProgressBar" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 466.0
+offset_top = 26.0
+offset_right = 544.0
+offset_bottom = 102.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = ExtResource("12_5ii6m")
+texture_over = ExtResource("13_s7pni")
+texture_progress = ExtResource("14_3vqv2")
+
+[node name="Control2" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 114.0
+offset_top = 30.0
+offset_right = 1271.0
+offset_bottom = 682.0
+
+[node name="pop_message" type="RichTextLabel" parent="CanvasLayer/Control2"]
+unique_name_in_owner = true
+visible = false
+z_index = 10
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.0
+offset_top = -25.0
+offset_right = 83.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("8_wx6cp")
+text = "+00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="border" type="Area2D" parent="."]
+script = SubResource("GDScript_ueojj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="border"]
+position = Vector2(327, 634)
+shape = SubResource("WorldBoundaryShape2D_ueojj")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Fish" parent="." instance=ExtResource("11_j4i6t")]
+position = Vector2(734, 623)
+
+[node name="tick" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_s7pni")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+offset_right = 1524.0
+offset_bottom = 955.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer2"]
+position = Vector2(539, 306.00003)
+scale = Vector2(5.3, 8.25)
+sprite_frames = SubResource("SpriteFrames_3vqv2")
+autoplay = "default"
+frame_progress = 0.2999591
+
+[node name="dustin" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("17_3vqv2")]
+z_index = 1
+position = Vector2(707, 662)
+Target = NodePath("../player")
+
+[node name="crow" parent="." instance=ExtResource("18_vsljy")]
+position = Vector2(297, 438)
+
+[node name="end_timer" type="Timer" parent="."]
+wait_time = 210.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="border" to="border" method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="tick" to="." method="_on_tick_timeout"]
+[connection signal="timeout" from="end_timer" to="." method="_on_end_timer_timeout"]

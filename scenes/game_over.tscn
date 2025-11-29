@@ -1,0 +1,246 @@
+[gd_scene load_steps=23 format=3 uid="uid://c4juhkf5gfohu"]
+
+[ext_resource type="Script" uid="uid://coj4fr1rcw11" path="res://scenes/game_over.gd" id="1_tbwuq"]
+[ext_resource type="Texture2D" uid="uid://dm0y45tjtqdd8" path="res://assets/sprites/label.png" id="1_xeevv"]
+[ext_resource type="Texture2D" uid="uid://bi000s8k25i76" path="res://assets/sprites/grave.png" id="2_wqhvx"]
+[ext_resource type="Shader" uid="uid://cspl76c60sg7g" path="res://assets/FX/slice_warp.gdshader" id="3_racf3"]
+[ext_resource type="Texture2D" uid="uid://w5e5rt2djowo" path="res://assets/sprites/GO_sprites.png" id="5_7m3ot"]
+[ext_resource type="AudioStream" uid="uid://ch48727nb6puo" path="res://assets/music/game_over.mp3" id="6_v3hpu"]
+
+[sub_resource type="Gradient" id="Gradient_tbwuq"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.44027275)
+colors = PackedColorArray(1, 1, 1, 0.23529412, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_racf3"]
+gradient = SubResource("Gradient_tbwuq")
+width = 172
+height = 25
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbwuq"]
+atlas = ExtResource("2_wqhvx")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_racf3"]
+atlas = ExtResource("2_wqhvx")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7m3ot"]
+atlas = ExtResource("2_wqhvx")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3hpu"]
+atlas = ExtResource("2_wqhvx")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_irg28"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbwuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_racf3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7m3ot")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3hpu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.5
+}]
+
+[sub_resource type="Animation" id="Animation_racf3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("label:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("fade:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_tbwuq"]
+resource_name = "intro"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("label:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.36666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("fade:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.5548825, 3.0311828, 3.5477507, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0.7176471), Color(0, 0, 0, 0.5411765), Color(0, 0, 0, 0.30980393), Color(0, 0, 0, 0.08235294)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7m3ot"]
+_data = {
+&"RESET": SubResource("Animation_racf3"),
+&"intro": SubResource("Animation_tbwuq")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7m3ot"]
+shader = ExtResource("3_racf3")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irg28"]
+atlas = ExtResource("5_7m3ot")
+region = Rect2(0, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jtsn"]
+atlas = ExtResource("5_7m3ot")
+region = Rect2(48, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8bugq"]
+atlas = ExtResource("5_7m3ot")
+region = Rect2(0, 16, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wawo4"]
+atlas = ExtResource("5_7m3ot")
+region = Rect2(48, 16, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56v3a"]
+atlas = ExtResource("5_7m3ot")
+region = Rect2(48, 16, 48, 16)
+
+[node name="GameOver" type="Node2D"]
+script = ExtResource("1_tbwuq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 373.0
+offset_top = 232.0
+offset_right = 770.0
+offset_bottom = 458.0
+color = Color(0, 0, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(570, 346)
+zoom = Vector2(3, 3)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(575, 415)
+texture = SubResource("GradientTexture2D_racf3")
+
+[node name="tomb" type="AnimatedSprite2D" parent="."]
+position = Vector2(571, 401)
+scale = Vector2(1.2, 1.2)
+sprite_frames = SubResource("SpriteFrames_irg28")
+autoplay = "default"
+frame_progress = 0.19676195
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7m3ot")
+}
+autoplay = "intro"
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+
+[node name="fade" type="ColorRect" parent="."]
+offset_left = 376.0
+offset_top = 234.0
+offset_right = 767.0
+offset_bottom = 461.0
+color = Color(0, 0, 0, 1)
+
+[node name="label" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_7m3ot")
+position = Vector2(576, 311)
+scale = Vector2(1.475, 2)
+texture = ExtResource("1_xeevv")
+hframes = 5
+frame = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+visible = false
+offset_left = 553.0
+offset_top = 346.0
+offset_right = 601.0
+offset_bottom = 382.0
+scale = Vector2(0.9312549, 0.58022493)
+theme_override_constants/separation = 10
+
+[node name="retryButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 13
+size_flags_vertical = 15
+texture_normal = SubResource("AtlasTexture_irg28")
+texture_pressed = SubResource("AtlasTexture_2jtsn")
+texture_hover = SubResource("AtlasTexture_2jtsn")
+
+[node name="menuButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 13
+size_flags_vertical = 15
+texture_normal = SubResource("AtlasTexture_8bugq")
+texture_pressed = SubResource("AtlasTexture_wawo4")
+texture_hover = SubResource("AtlasTexture_56v3a")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_v3hpu")
+bus = &"Music"
+parameters/looping = true
+
+[connection signal="pressed" from="VBoxContainer/retryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/menuButton" to="." method="_on_menu_button_pressed"]
